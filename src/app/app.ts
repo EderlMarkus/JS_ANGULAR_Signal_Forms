@@ -85,6 +85,7 @@ export class App {
   protected readonly userForm = form(this.userSig, (path) => {
     required(path.firstName);
   });
+
   protected saveProposal() {
     console.log("saved");
   }
