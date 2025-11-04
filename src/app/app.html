@@ -1,6 +1,10 @@
 <form>
-  <input matInput id="firstName" class="form-control" [control]="userForm.firstName" />
+  <mat-form-field>
+    <mat-label>Firstname</mat-label>
+    <input matInput id="firstName" class="form-control" [control]="userForm.firstName" />
+  </mat-form-field>
   <div class="button">
-    <button type="submit" matButton="elevated" (click)="saveProposal()">Save</button>
+    <button type="button" matButton="filled" [disabled]="!userForm().valid() || userForm().submitting()"
+      (click)="saveProposal()">Save</button>
   </div>
 </form>
