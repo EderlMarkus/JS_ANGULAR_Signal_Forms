@@ -82,9 +82,7 @@ export class App {
     "role": ""
   });
 
-  protected readonly userForm = form(this.userSig, (path) => {
-    required(path.firstName);
-  });
+  protected readonly userForm = form(this.userSig);
 
   protected saveProposal() {
     console.log("saved");
