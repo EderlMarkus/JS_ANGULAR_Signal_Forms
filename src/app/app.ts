@@ -44,10 +44,10 @@ export class App {
   }
 
   protected readonly userForm = form(this.userSig, (path) => {
-    required(path.firstName, { message: "Firstname is required." }),
-      minLength(path.firstName, 3, { message: "Firstname must have at least 3 Characters." }),
-      maxLength(path.firstName, 30, { message: "Firstname must not have more than 30 Characters." }),
-      this.asyncValidator(path.firstName)
+    required(path.firstName, { message: "Firstname is required." });
+    minLength(path.firstName, 3, { message: "Firstname must have at least 3 Characters." });
+    maxLength(path.firstName, 30, { message: "Firstname must not have more than 30 Characters." });
+    this.asyncValidator(path.firstName)
   });
 
 
