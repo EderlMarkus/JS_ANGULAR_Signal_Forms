@@ -14,9 +14,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 export class App {
 
   private readonly _textSchema: Schema<string> = schema((fieldPath) => {
-    required(fieldPath, { message: 'This field is required' }),
-      minLength(fieldPath, 3, { message: (ctx) => `Enter minimum ${ctx.field().property(MIN_LENGTH)()} Characters` }),
-      maxLength(fieldPath, 50, { message: (ctx) => `Enter maximum ${ctx.field().property(MAX_LENGTH)()} Characters` })
+    required(fieldPath, { message: 'This Field is required' });
+    minLength(fieldPath, 3, { message: (ctx) => `Enter minimum ${ctx.field().property(MIN_LENGTH)()} Characters` });
+    maxLength(fieldPath, 50, { message: (ctx) => `Enter maximum ${ctx.field().property(MAX_LENGTH)()} Characters` });
   });
 
   protected readonly userSig = signal<User>({
