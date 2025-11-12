@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -83,5 +83,13 @@ export class Users {
 
   public getUsers(): Observable<User[]> {
     return this._httpClient.get<User[]>(`${this._apiUrl}/users`);
+  }
+
+  public findUserByKeyValue(key: string, value: string) {
+    const params = new HttpParams()
+      .set("key", key)
+      .set("value", value);
+
+    return this._httpClient.get<User[]>(`${this._apiUrl}/filter`, { params })
   }
 }

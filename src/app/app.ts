@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { Control, form, maxLength, minLength, required } from '@angular/forms/signals';
+import { Control, disabled, FieldPath, form, maxLength, minLength, required, validateHttp } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { User } from '../data/users';
@@ -83,11 +83,35 @@ export class App {
     "role": ""
   });
 
+  private readonly asyncValidator = (schema: FieldPath<string>) => {
+    validateHttp(schema, {
+      request: (ctx) => ({
+        url: "https://dummyjson.com/users/filter",
+        params: {
+          key: "firstName",
+          value: ctx.value()
+        }
+      }),
+      errors: (result: { users: User[] }, _ctx) => {
+        if (result.users?.length > 0) {
+          return {
+            kind: "user_already_exists",
+            message: "Username already taken."
+          }
+        };
+        return null;
+      }
+    })
+  }
+
   protected readonly userForm = form(this.userSig, (path) => {
     required(path.firstName, { message: "Firstname is required." }),
       minLength(path.firstName, 3, { message: "Firstname must have at least 3 Characters." }),
-      maxLength(path.firstName, 30, { message: "Firstname must not have more than 30 Characters." })
+      maxLength(path.firstName, 30, { message: "Firstname must not have more than 30 Characters." }),
+      this.asyncValidator(path.firstName)
   });
+
+
 
   protected saveProposal() {
     console.log("saved");
