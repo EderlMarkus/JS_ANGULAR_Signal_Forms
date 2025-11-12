@@ -15,12 +15,11 @@ export class App {
 
   protected readonly userSig = signal<User>({
     "firstName": "Markus",
-    "lastName": "",
+    "lastName": "Ederl",
     "age": 0,
-    "email": "",
-    "username": "",
+    "email": "markus.eder@r-software.at",
+    "username": "MarkusEderl",
   });
-
 
   protected readonly userForm = form(this.userSig, (path) => {
     required(path.firstName, { message: "Firstname is required." }),
