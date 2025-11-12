@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { Control, form, maxLength, minLength, required } from '@angular/forms/signals';
+import { apply, applyWhenValue, Control, disabled, form, MAX_LENGTH, maxLength, MIN_LENGTH, minLength, required, Schema, schema } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { User } from '../data/users';
@@ -13,6 +13,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 })
 export class App {
 
+  private readonly _textSchema: Schema<string> = schema((fieldPath) => {
+    required(fieldPath, { message: 'This field is required' }),
+      minLength(fieldPath, 3, { message: (ctx) => `Enter minimum ${ctx.field().property(MIN_LENGTH)()} Characters` }),
+      maxLength(fieldPath, 50, { message: (ctx) => `Enter maximum ${ctx.field().property(MAX_LENGTH)()} Characters` })
+  });
+
   protected readonly userSig = signal<User>({
     "firstName": "Markus",
     "lastName": "Ederl",
@@ -22,9 +28,17 @@ export class App {
   });
 
   protected readonly userForm = form(this.userSig, (path) => {
-    required(path.firstName, { message: "Firstname is required." }),
-      minLength(path.firstName, 3, { message: "Firstname must have at least 3 Characters." }),
-      maxLength(path.firstName, 30, { message: "Firstname must not have more than 30 Characters." })
+    apply(path.firstName, this._textSchema);
+    apply(path.lastName, this._textSchema);
+
+    applyWhenValue(path, (ctx) => !!ctx.firstName, (path) => {
+      required(path.lastName, { message: "Lastname is required." });
+    });
+
+    applyWhenValue(path, (ctx) => !!ctx.lastName, (path) => {
+      required(path.firstName, { message: "Firstname is required." });
+    });
+
   });
 
   protected saveProposal() {
