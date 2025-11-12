@@ -11,75 +11,13 @@ import { User } from '../data/users';
   styleUrl: './app.scss'
 })
 export class App {
+
   protected readonly userSig = signal<User>({
-    "id": 0,
-    "firstName": "",
+    "firstName": "Markus",
     "lastName": "",
-    "maidenName": "",
     "age": 0,
-    "gender": "",
     "email": "",
-    "phone": "",
     "username": "",
-    "password": "",
-    "birthDate": "",
-    "image": "",
-    "bloodGroup": "",
-    "height": 0,
-    "weight": 0,
-    "eyeColor": "",
-    "hair": {
-      "color": "",
-      "type": ""
-    },
-    "ip": "",
-    "address": {
-      "address": "",
-      "city": "",
-      "state": "",
-      "stateCode": "",
-      "postalCode": "",
-      "coordinates": {
-        "lat": 0,
-        "lng": 0,
-      },
-      "country": ""
-    },
-    "macAddress": "",
-    "university": "",
-    "bank": {
-      "cardExpire": "",
-      "cardNumber": "",
-      "cardType": "",
-      "currency": "",
-      "iban": ""
-    },
-    "company": {
-      "department": "",
-      "name": "",
-      "title": "",
-      "address": {
-        "address": "",
-        "city": "",
-        "state": "",
-        "stateCode": "",
-        "postalCode": "",
-        "coordinates": {
-          "lat": 0,
-          "lng": 0,
-        },
-        "country": ""
-      }
-    },
-    "ein": "",
-    "ssn": "",
-    "userAgent": "",
-    "crypto": {
-      "coin": "",
-      "wallet": "",
-      "network": ""
-    },
-    "role": ""
   });
 
   protected readonly userForm = form(this.userSig);
