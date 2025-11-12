@@ -50,8 +50,6 @@ export class App {
     this._asyncValidator(path.firstName)
   });
 
-
-
   protected saveProposal() {
     console.log("saved");
   }
