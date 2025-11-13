@@ -48,4 +48,5 @@ body {
 }
 
 @include mat.theme-overrides((surface: #9ECAD6,
-    primary: #748DAE, secondard: #F5CBCB));
+    primary: #748DAE,
+    secondard: #F5CBCB));
