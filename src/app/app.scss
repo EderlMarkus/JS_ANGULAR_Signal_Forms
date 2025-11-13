@@ -1,18 +1,22 @@
 form {
-    margin: 2rem;
     display: flex;
     flex-direction: column;
+}
 
-    @media screen and (min-width: 728px) {
-        max-width: 33vw;
+.row {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 728px) {
+    .row {
+        flex-direction: column;
     }
 }
 
-.button {
-    display: flex;
-    justify-content: center;
-}
-
-button {
-    max-width: 10vw;
+@media screen and (min-width: 728px) {
+    mat-form-field {
+        min-width: 35vw;
+    }
 }
