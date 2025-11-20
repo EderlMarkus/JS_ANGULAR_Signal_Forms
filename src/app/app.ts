@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { Field, form, required } from '@angular/forms/signals';
+import { apply, applyWhenValue, Field, form, MAX_LENGTH, maxLength, MIN_LENGTH, minLength, required, schema, Schema } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { User } from '../data/users';
@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-root',
-  imports: [Field, MatInputModule, MatButtonModule],
+  imports: [Field, MatInputModule, MatButtonModule, MatFormFieldModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -15,14 +15,14 @@ export class App {
 
   private readonly _textSchema: Schema<string> = schema((fieldPath) => {
     required(fieldPath, { message: 'This Field is required' });
-    minLength(fieldPath, 3, { message: (ctx) => `Enter minimum ${ctx.field().property(MIN_LENGTH)()} Characters` });
-    maxLength(fieldPath, 50, { message: (ctx) => `Enter maximum ${ctx.field().property(MAX_LENGTH)()} Characters` });
+    minLength(fieldPath, 3, { message: (ctx) => `Enter minimum ${ctx.field().minLength?.()} Characters` });
+    maxLength(fieldPath, 50, { message: (ctx) => `Enter maximum ${ctx.field().maxLength?.()} Characters` });
   });
 
   protected readonly userSig = signal<User>({
     "firstName": "Markus",
     "lastName": "Ederl",
-    "age": 0,
+    "age": "0",
     "email": "markus.eder@r-software.at",
     "username": "MarkusEderl",
   });

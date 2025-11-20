@@ -1,8 +1,47 @@
 <form>
-  <mat-form-field>
-    <mat-label>Firstname</mat-label>
-    <input matInput id="firstName" class="form-control" [field]="userForm.firstName" />
-  </mat-form-field>
+  <div class="row">
+    <mat-form-field>
+      <mat-label>Firstname</mat-label>
+      <input matInput id="firstName" class="form-control" [field]="userForm.firstName" />
+      @for(error of userForm.firstName().errors(); track error){
+      <mat-error>{{error.message}}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Lastname</mat-label>
+      <input matInput id="lastName" class="form-control" [field]="userForm.lastName" />
+      @for(error of userForm.lastName().errors(); track error){
+      <mat-error>{{error.message}}</mat-error>
+      }
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field>
+      <mat-label>Age</mat-label>
+      <input matInput id="age" class="form-control" [field]="userForm.age" />
+      @for(error of userForm.age().errors(); track error){
+      <mat-error>{{error.message}}</mat-error>
+      }
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field>
+      <mat-label>E-Mail</mat-label>
+      <input matInput id="email" class="form-control" [field]="userForm.email" />
+      @for(error of userForm.email().errors(); track error){
+      <mat-error>{{error.message}}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input matInput id="email" class="form-control" [field]="userForm.username" />
+      @for(error of userForm.username().errors(); track error){
+      <mat-error>{{error.message}}</mat-error>
+      }
+    </mat-form-field>
+  </div>
   <div class="button">
     <button type="button" matButton="filled" [disabled]="!userForm().valid() || userForm().submitting()"
       (click)="saveProposal()">Save</button>
