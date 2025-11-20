@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { Field, form, required, SchemaPath, validateHttp } from '@angular/forms/signals';
+import { Field, form, maxLength, minLength, required, SchemaPath, validateHttp } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { User } from '../data/users';
