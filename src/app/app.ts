@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { apply, applyWhenValue, Field, form, MAX_LENGTH, maxLength, MIN_LENGTH, minLength, required, schema, Schema } from '@angular/forms/signals';
+import { apply, applyWhenValue, email, Field, form, MAX_LENGTH, maxLength, MIN_LENGTH, minLength, required, schema, Schema } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { User } from '../data/users';
@@ -31,6 +31,7 @@ export class App {
     apply(path.firstName, this._textSchema);
     apply(path.lastName, this._textSchema);
 
+    email(path.email, { message: "Must be E-Mail" })
     applyWhenValue(path, (ctx) => !!ctx.firstName, (path) => {
       required(path.lastName, { message: "Lastname is required." });
     });
