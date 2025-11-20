@@ -3,20 +3,17 @@ form {
     flex-direction: column;
 }
 
-.row {
+    @media screen and (min-width: 728px) {
+        max-width: 40vw;
+    }
+}
+
+.button {
+    margin-top: 2rem;
     display: flex;
-    gap: 2rem;
-    margin-bottom: 1rem;
+    justify-content: center;
 }
 
-@media screen and (max-width: 728px) {
-    .row {
-        flex-direction: column;
-    }
-}
-
-@media screen and (min-width: 728px) {
-    mat-form-field {
-        min-width: 35vw;
-    }
+button {
+    max-width: 10vw;
 }
