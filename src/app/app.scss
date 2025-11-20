@@ -4,11 +4,12 @@ form {
     flex-direction: column;
 
     @media screen and (min-width: 728px) {
-        max-width: 33vw;
+        max-width: 40vw;
     }
 }
 
 .button {
+    margin-top: 2rem;
     display: flex;
     justify-content: center;
 }
