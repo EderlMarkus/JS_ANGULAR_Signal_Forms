@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { Field, form, required } from '@angular/forms/signals';
+import { Field, form, required, SchemaPath, validateHttp } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { User } from '../data/users';
@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-root',
-  imports: [Field, MatInputModule, MatButtonModule],
+  imports: [Field, MatInputModule, MatButtonModule, MatFormFieldModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -22,23 +22,28 @@ export class App {
   });
 
 
-  private readonly _asyncValidator = (schema: FieldPath<string>) => {
+  private readonly _asyncValidator = (schema: SchemaPath<string>) => {
     validateHttp(schema, {
       request: (ctx) => ({
         url: "https://dummyjson.com/users/filter",
         params: {
           key: "firstName",
-          value: ctx.value()
+          value: ctx.value() as string
         }
       }),
-      errors: (result: { users: User[] }, _ctx) => {
-        if (result.users?.length > 0) {
+      onSuccess: (result: User[], _ctx) => {
+        if (result.length === 0) {
           return {
-            kind: "user_already_exists",
-            message: "Username already taken."
-          }
-        };
+            kind: 'user_not_found_http',
+          };
+        }
         return null;
+      },
+      onError: (error, _ctx) => {
+        console.error('api error validating user', error);
+        return {
+          kind: 'api-failed'
+        };
       }
     })
   }
