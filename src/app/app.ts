@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { Field, form, required } from '@angular/forms/signals';
+import { Field, form, maxLength, minLength, required } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { User } from '../data/users';
@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-root',
-  imports: [Field, MatInputModule, MatButtonModule],
+  imports: [Field, MatInputModule, MatButtonModule, MatFormFieldModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
