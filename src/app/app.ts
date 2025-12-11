@@ -23,7 +23,7 @@ export class App {
 
 
   private readonly _asyncValidator = (schema: SchemaPath<string>) => {
-    validateHttp(schema, {
+    validateHttp(schema, { //check if using validateAsync is better? https://stackblitz.com/edit/stackblitz-starters-pfzstgbv?file=src%2Fform%2Fform.component.ts
       request: (ctx) => ({
         url: "https://dummyjson.com/users/filter",
         params: {
