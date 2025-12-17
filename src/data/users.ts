@@ -10,6 +10,12 @@ export interface User {
   "username": string;
 };
 
+export interface UserResponse {
+  limit: number,
+  skip: number
+  total: number
+  users: User[]
+}
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +33,6 @@ export class Users {
       .set("key", key)
       .set("value", value);
 
-    return this._httpClient.get<User[]>(`${this._apiUrl}/filter`, { params })
+    return this._httpClient.get<UserResponse>(`${this._apiUrl}/filter`, { params })
   }
 }

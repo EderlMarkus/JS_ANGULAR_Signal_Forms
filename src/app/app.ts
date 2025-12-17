@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { Field, form, maxLength, minLength, required, SchemaPath, validateHttp } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { User } from '../data/users';
+import { User, UserResponse } from '../data/users';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
@@ -31,10 +31,11 @@ export class App {
           value: ctx.value() as string
         }
       }),
-      onSuccess: (result: User[], _ctx) => {
-        if (result.length === 0) {
+      onSuccess: (result: UserResponse, _ctx) => {
+        if (result.users.length > 0) {
           return {
             kind: 'user_not_found_http',
+            message: "Name already taken"
           };
         }
         return null;
