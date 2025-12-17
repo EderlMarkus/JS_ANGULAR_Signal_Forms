@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { Field, form, maxLength, minLength, required, SchemaPath, validateHttp } from '@angular/forms/signals';
+import { customError, Field, form, maxLength, minLength, required, SchemaPath, validateHttp } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { User, UserResponse } from '../data/users';
@@ -33,10 +33,10 @@ export class App {
       }),
       onSuccess: (result: UserResponse, _ctx) => {
         if (result.users.length > 0) {
-          return {
+          return customError({
             kind: "firstname_taken",
             message: "Name already taken"
-          };
+          });
         }
         return null;
       },
