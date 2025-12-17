@@ -2,6 +2,9 @@
   <mat-form-field>
     <mat-label>Firstname</mat-label>
     <input matInput id="firstName" class="form-control" [field]="userForm.firstName" />
+    @for(error of userForm.firstName().errors(); track error){
+    <mat-error>{{error.message}}</mat-error>
+    }
   </mat-form-field>
   <div class="button">
     <button type="button" matButton="filled" [disabled]="!userForm().valid() || userForm().submitting()"
