@@ -34,7 +34,7 @@ export class App {
       onSuccess: (result: UserResponse, _ctx) => {
         if (result.users.length > 0) {
           return {
-            kind: 'user_not_found_http',
+            kind: "firstname_taken",
             message: "Name already taken"
           };
         }
