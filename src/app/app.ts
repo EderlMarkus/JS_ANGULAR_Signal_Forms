@@ -1,9 +1,10 @@
-import { Component, signal } from '@angular/core';
-import { Field, form, maxLength, minLength, required, SchemaPath, validateHttp } from '@angular/forms/signals';
+import { Component, inject, resource, signal } from '@angular/core';
+import { customError, Field, form, maxLength, minLength, required, SchemaPath, validateAsync, validateHttp } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { User } from '../data/users';
+import { User, Users } from '../data/users';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 })
 export class App {
 
+  private userService = inject(Users);
   protected readonly userSig = signal<User>({
     "firstName": "Markus",
     "lastName": "",
@@ -23,29 +25,33 @@ export class App {
 
 
   private readonly _asyncValidator = (schema: SchemaPath<string>) => {
-    validateHttp(schema, { //check if using validateAsync is better? https://stackblitz.com/edit/stackblitz-starters-pfzstgbv?file=src%2Fform%2Fform.component.ts
-      request: (ctx) => ({
-        url: "https://dummyjson.com/users/filter",
-        params: {
-          key: "firstName",
-          value: ctx.value() as string
+    validateAsync(schema, {
+      params: ({ value }) => {
+        const val = value();
+        if (!val || val.length < 3) return undefined;
+        return val;
+      },
+      factory: firstname => resource({
+        params: firstname,
+        loader: async ({ params: firstname }) => {
+          const queriedUsers = await firstValueFrom(this.userService.findUserByKeyValue("firstName", firstname));
+          return queriedUsers.users.length === 0
         }
       }),
-      onSuccess: (result: User[], _ctx) => {
-        if (result.length === 0) {
-          return {
-            kind: 'user_not_found_http',
-          };
+      onSuccess: (result: boolean) => {
+        if (!result) {
+          return customError({
+            kind: "firstname_taken",
+            message: "Name already taken"
+          })
         }
         return null;
       },
-      onError: (error, _ctx) => {
-        console.error('api error validating user', error);
-        return {
-          kind: 'api-failed'
-        };
+      onError: (error: unknown) => {
+        console.error('Validation error:', error);
+        return null;
       }
-    })
+    });
   }
 
   protected readonly userForm = form(this.userSig, (path) => {
