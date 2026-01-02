@@ -26,7 +26,7 @@ export class App {
     validateTree(schema, (ctx) => {
       const firstName = ctx.field.firstName().value();
       const lastName = ctx.field.lastName().value();
-
+      if (!firstName || !lastName) return null;
       if (firstName === lastName) {
         return {
           kind: "same_names",
@@ -57,12 +57,12 @@ export class App {
     //OPTION 1
     required(path.firstName, {
       when: (ctx) => !!ctx.valueOf(path.lastName),
-      message: "Firstname is required"
+      message: "Firstname is required if Lastname was defined"
     });
 
     required(path.lastName, {
       when: (ctx) => !!ctx.valueOf(path.firstName),
-      message: "LastName is required"
+      message: "Lastname is required if Firstname is defined"
     })
 
     //OPTION 2
