@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { Field, form, maxLength, minLength, required } from '@angular/forms/signals';
+import { email, Field, form, max, maxLength, min, minLength, pattern, required } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { User } from '../data/users';
@@ -25,6 +25,10 @@ export class App {
     required(path.firstName, { message: "Firstname is required." });
     minLength(path.firstName, 3, { message: "Firstname must have at least 3 Characters." });
     maxLength(path.firstName, 30, { message: "Firstname must not have more than 30 Characters." })
+    // min(path.firstName, minValue);               // minimum numeric value
+    // max(path.firstName, maxValue);               // maximum numeric value  
+    // pattern(path.firstName, regex);              // regex pattern
+    // email(path.firstName);                       // email format
   });
 
   protected saveProposal() {
