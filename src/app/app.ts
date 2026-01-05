@@ -46,6 +46,7 @@ export class App {
     "age": "0",
     "email": "markus.eder@r-software.at",
     "username": "MarkusEderl",
+    "hobbies": [{ name: "", description: "" }]
   });
 
   protected readonly userForm = form(this.userSig, (path) => {
@@ -84,6 +85,10 @@ export class App {
 
 
   });
+
+  protected addHobby() {
+    this.userSig.update(model => ({ ...model, hobbies: [...model.hobbies, { name: "", description: "" }] }))
+  }
 
   protected saveProposal() {
     console.log("saved");

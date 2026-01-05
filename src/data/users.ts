@@ -2,12 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+export interface Hobby {
+  name: string,
+  description: string,
+}
 export interface User {
   "firstName": string;
   "lastName": string;
   "age": string;
   "email": string;
   "username": string;
+  "hobbies": Hobby[];
 };
 
 @Injectable({

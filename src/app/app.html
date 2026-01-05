@@ -42,6 +42,20 @@
       }
     </mat-form-field>
   </div>
+  @for(hobby of userForm.hobbies; track hobby){
+  <div class="row">
+    <mat-form-field>
+      <mat-label>Hobby</mat-label>
+      <input matInput id="hobbyname" class="form-control" [field]="hobby.name" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Beschreibung</mat-label>
+      <input matInput id="hobbydescription" class="form-control" [field]="hobby.description" />
+    </mat-form-field>
+    <button type="button" matButton="filled" (click)="addHobby()">+</button>
+  </div>
+  }
   <div class="button">
     <button type="button" matButton="filled" [disabled]="!userForm().valid() || userForm().submitting()"
       (click)="saveProposal()">Save</button>
