@@ -20,4 +20,8 @@ export class Users {
   public getUsers(): Observable<User[]> {
     return this._httpClient.get<User[]>(`${this._apiUrl}/users`);
   }
+
+  public addUser(user: User) {
+    return this._httpClient.post<User>(`${this._apiUrl}/users/add`, user, { headers: { 'Content-Type': 'application/json' } })
+  }
 }

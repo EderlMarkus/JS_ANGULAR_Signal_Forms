@@ -1,9 +1,10 @@
-import { Component, signal } from '@angular/core';
-import { apply, applyWhen, applyWhenValue, email, Field, form, MAX_LENGTH, maxLength, MIN_LENGTH, minLength, required, schema, Schema, SchemaPath, validateTree } from '@angular/forms/signals';
+import { Component, inject, signal } from '@angular/core';
+import { apply, applyWhen, applyWhenValue, customError, email, Field, form, MAX_LENGTH, maxLength, MIN_LENGTH, minLength, required, schema, Schema, SchemaPath, submit, validateTree } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { User } from '../data/users';
+import { User, Users } from '../data/users';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   styleUrl: './app.scss'
 })
 export class App {
+
+  private userService = inject(Users);
 
   private readonly _textSchema: Schema<string> = schema((fieldPath) => {
     minLength(fieldPath, 3, { message: (ctx) => `Enter minimum ${ctx.field().minLength?.()} Characters` });
@@ -44,7 +47,7 @@ export class App {
     "firstName": "Markus",
     "lastName": "Ederl",
     "age": "0",
-    "email": "markus.eder@r-software.at",
+    "email": "markus.ederl@r-software.at",
     "username": "MarkusEderl",
   });
 
@@ -81,11 +84,20 @@ export class App {
 
     //Multi-Field; Tree Valdiators
     this._validateFirstNameLastNameSame(path);
-
-
   });
 
-  protected saveProposal() {
-    console.log("saved");
+  protected async saveProposal() {
+    await submit(this.userForm, async (form) => {
+      try {
+        const response = await firstValueFrom(this.userService.addUser(form().value()));
+      } catch (error) {
+        return [{
+          //field: this.userForm.firstName,
+          kind: "server",
+          message: "Fehler beim speichern."
+        }]
+      }
+      return undefined;
+    });
   }
 }

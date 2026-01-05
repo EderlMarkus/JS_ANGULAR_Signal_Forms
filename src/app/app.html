@@ -46,4 +46,7 @@
     <button type="button" matButton="filled" [disabled]="!userForm().valid() || userForm().submitting()"
       (click)="saveProposal()">Save</button>
   </div>
+  @for(error of userForm().errors(); track error){
+  <mat-error>{{error.message}}</mat-error>
+  }
 </form>
