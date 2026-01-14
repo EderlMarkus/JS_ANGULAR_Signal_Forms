@@ -1,17 +1,18 @@
 import { Component, signal } from '@angular/core';
-import { Field, form, required } from '@angular/forms/signals';
+import { FormField, form, required } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { User } from '../data/users';
 
 @Component({
   selector: 'app-root',
-  imports: [Field, MatInputModule, MatButtonModule],
+  imports: [FormField, MatInputModule, MatButtonModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App {
 
+  //Initales Signal definieren & typisieren
   protected readonly userSig = signal<User>({
     "firstName": "Markus",
     "lastName": "",
@@ -20,6 +21,7 @@ export class App {
     "username": "",
   });
 
+  //Form initieren
   protected readonly userForm = form(this.userSig);
 
   protected saveProposal() {

@@ -1,7 +1,8 @@
 <form>
   <mat-form-field>
     <mat-label>Firstname</mat-label>
-    <input matInput id="firstName" class="form-control" [field]="userForm.firstName" />
+    <!-- Mit der FormField-Direktive das Inputfeld an das Formular binden -->
+    <input matInput id="firstName" class="form-control" [formField]="userForm.firstName" />
   </mat-form-field>
   <div class="button">
     <button type="button" matButton="filled" [disabled]="!userForm().valid() || userForm().submitting()"
