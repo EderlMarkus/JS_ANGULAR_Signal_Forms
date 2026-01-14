@@ -2,7 +2,7 @@
   <div class="row">
     <mat-form-field>
       <mat-label>Firstname</mat-label>
-      <input matInput id="firstName" class="form-control" [field]="userForm.firstName" />
+      <input matInput id="firstName" class="form-control" [formField]="userForm.firstName" />
       @for(error of userForm.firstName().errors(); track error){
       <mat-error>{{error.message}}</mat-error>
       }
@@ -10,7 +10,7 @@
 
     <mat-form-field>
       <mat-label>Lastname</mat-label>
-      <input matInput id="lastName" class="form-control" [field]="userForm.lastName" />
+      <input matInput id="lastName" class="form-control" [formField]="userForm.lastName" />
       @for(error of userForm.lastName().errors(); track error){
       <mat-error>{{error.message}}</mat-error>
       }
@@ -19,7 +19,7 @@
   <div class="row">
     <mat-form-field>
       <mat-label>Age</mat-label>
-      <input matInput id="age" class="form-control" [field]="userForm.age" />
+      <input matInput id="age" class="form-control" [formField]="userForm.age" />
       @for(error of userForm.age().errors(); track error){
       <mat-error>{{error.message}}</mat-error>
       }
@@ -28,7 +28,7 @@
   <div class="row">
     <mat-form-field>
       <mat-label>E-Mail</mat-label>
-      <input matInput id="email" class="form-control" [field]="userForm.email" />
+      <input matInput id="email" class="form-control" [formField]="userForm.email" />
       @for(error of userForm.email().errors(); track error){
       <mat-error>{{error.message}}</mat-error>
       }
@@ -36,7 +36,7 @@
 
     <mat-form-field>
       <mat-label>Username</mat-label>
-      <input matInput id="email" class="form-control" [field]="userForm.username" />
+      <input matInput id="email" class="form-control" [formField]="userForm.username" />
       @for(error of userForm.username().errors(); track error){
       <mat-error>{{error.message}}</mat-error>
       }
