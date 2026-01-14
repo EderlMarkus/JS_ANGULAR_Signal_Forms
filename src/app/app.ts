@@ -1,5 +1,5 @@
 import { Component, inject, resource, signal } from '@angular/core';
-import { customError, Field, form, maxLength, minLength, required, SchemaPath, validateAsync, validateHttp } from '@angular/forms/signals';
+import { FormField, form, maxLength, minLength, required, SchemaPath, validateAsync, validateHttp } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { User, Users } from '../data/users';
@@ -8,7 +8,7 @@ import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  imports: [Field, MatInputModule, MatButtonModule, MatFormFieldModule],
+  imports: [FormField, MatInputModule, MatButtonModule, MatFormFieldModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -40,10 +40,10 @@ export class App {
       }),
       onSuccess: (result: boolean) => {
         if (!result) {
-          return customError({
+          return {
             kind: "firstname_taken",
             message: "Name already taken"
-          })
+          }
         }
         return null;
       },
