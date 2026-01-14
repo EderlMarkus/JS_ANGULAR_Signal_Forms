@@ -2,6 +2,7 @@
   <mat-form-field>
     <mat-label>Firstname</mat-label>
     <input matInput id="firstName" class="form-control" [formField]="userForm.firstName" />
+    <!-- Mit einem For-Loop kann man am einfachsten über alle Fehler eines Feldes iterieren -->
     @for(error of userForm.firstName().errors(); track error){
     <mat-error>{{error.message}}</mat-error>
     }
