@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { FormField, form, maxLength, minLength, required } from '@angular/forms/signals';
+import { FormField, form, maxLength, minLength, provideSignalFormsConfig, required } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { User } from '../data/users';
@@ -22,13 +22,24 @@ export class App {
   });
 
 
+
   protected readonly userForm = form(this.userSig, (path) => {
     required(path.firstName, { message: "Firstname is required." }),
       minLength(path.firstName, 3, { message: "Firstname must have at least 3 Characters." }),
-      maxLength(path.firstName, 30, { message: "Firstname must not have more than 30 Characters." })
+      maxLength(path.firstName, 30, { message: "Firstname must not have more than 30 Characters." }),
+
+      //This is now possible using the provideSignalFormsConfig() function in your application configuration
+      provideSignalFormsConfig({
+        classes: {
+          'is-invalid': field => field.state().invalid() && field.state().touched()
+        }
+      })
   });
 
   protected saveProposal() {
     console.log("saved");
   }
+
+  //TODO: focusBoundControl()
+  //https://blog.ninja-squad.com/2026/01/15/what-is-new-angular-21.1
 }
