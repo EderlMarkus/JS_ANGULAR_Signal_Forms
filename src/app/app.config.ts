@@ -1,6 +1,7 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { App } from './app';
+import { provideSignalFormsConfig } from '@angular/forms/signals';
 
 
 const routes = [
@@ -12,6 +13,11 @@ const routes = [
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes)
+    provideRouter(routes),
+    provideSignalFormsConfig({
+      classes: {
+        'is-invalid': field => field.state().invalid() && field.state().touched()
+      }
+    })
   ]
 };
