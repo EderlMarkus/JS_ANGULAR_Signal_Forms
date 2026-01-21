@@ -49,6 +49,8 @@ export class App {
   });
 
   protected readonly userForm = form(this.userSig, (path) => {
+    //Für wiederkehrende Validatoren welche auf mehrere Felder angewendet werden soll
+    //kann man ein Schema verwenden.
     apply(path.firstName, this._textSchema);
     apply(path.lastName, this._textSchema);
 
