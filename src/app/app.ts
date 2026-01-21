@@ -1,8 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormField, form, maxLength, minLength, provideSignalFormsConfig, required } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { User } from '../data/users';
+import { User, Users } from '../data/users';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
@@ -12,6 +12,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   styleUrl: './app.scss'
 })
 export class App {
+
+  private userService = inject(Users);
 
   protected readonly userSig = signal<User>({
     "firstName": "",
