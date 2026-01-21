@@ -1,9 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormField, form, maxLength, minLength, provideSignalFormsConfig, required } from '@angular/forms/signals';
+import { FormField, form, maxLength, minLength, provideSignalFormsConfig, required, submit } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { User, Users } from '../data/users';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -31,8 +32,19 @@ export class App {
       maxLength(path.firstName, 30, { message: "Firstname must not have more than 30 Characters." })
   });
 
-  protected saveProposal() {
-    console.log("saved");
+  protected async saveProposal() {
+    await submit(this.userForm, async (form) => {
+      try {
+        const response = await firstValueFrom(this.userService.addUser(form().value()));
+      } catch (error) {
+        return [{
+          //field: this.userForm.firstName,
+          kind: "server",
+          message: "Fehler beim speichern."
+        }]
+      }
+      return undefined;
+    });
   }
 
   //TODO: focusBoundControl()
