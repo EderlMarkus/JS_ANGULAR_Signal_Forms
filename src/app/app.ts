@@ -5,16 +5,18 @@ import { MatInputModule } from '@angular/material/input';
 import { User, Users } from '../data/users';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { firstValueFrom } from 'rxjs';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
-  imports: [FormField, MatInputModule, MatButtonModule, MatFormFieldModule],
+  imports: [FormField, MatInputModule, MatButtonModule, MatFormFieldModule, MatSnackBarModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App {
 
   private userService = inject(Users);
+  private snackBar = inject(MatSnackBar);
 
   protected readonly userSig = signal<User>({
     "firstName": "",
@@ -36,9 +38,12 @@ export class App {
     await submit(this.userForm, async (form) => {
       try {
         const response = await firstValueFrom(this.userService.addUser(form().value()));
+        this.snackBar.open("User gespeichert", "OK");
       } catch (error) {
+        this.snackBar.open("User nicht gespeichert", "OK");
+        this.userForm.firstName().focusBoundControl();
         return [{
-          //field: this.userForm.firstName,
+          field: this.userForm.firstName,
           kind: "server",
           message: "Fehler beim speichern."
         }]
@@ -46,7 +51,4 @@ export class App {
       return undefined;
     });
   }
-
-  //TODO: focusBoundControl()
-  //https://blog.ninja-squad.com/2026/01/15/what-is-new-angular-21.1
 }
