@@ -19,7 +19,7 @@ export class App {
   private snackBar = inject(MatSnackBar);
 
   protected readonly userSig = signal<User>({
-    "firstName": "",
+    "firstName": "12",
     "lastName": "",
     "age": 0,
     "email": "",

@@ -8,7 +8,6 @@
     }
   </mat-form-field>
   <div class="button">
-    <button type="button" matButton="filled" [disabled]="!userForm().valid() || userForm().submitting()"
-      (click)="saveProposal()">Save</button>
+    <button type="button" matButton="filled" (click)="saveProposal()">Save</button>
   </div>
 </form>

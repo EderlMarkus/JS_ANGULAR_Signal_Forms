@@ -16,7 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideSignalFormsConfig({
       classes: {
-        'is-invalid': field => field.state().invalid() && field.state().touched()
+        'is-invalid': field => field.state().invalid() && field.state().dirty()
       }
     })
   ]
