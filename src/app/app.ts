@@ -19,11 +19,11 @@ export class App {
   private snackBar = inject(MatSnackBar);
 
   protected readonly userSig = signal<User>({
-    "firstName": "",
-    "lastName": "",
+    "firstName": "Markus",
+    "lastName": "Ederl",
     "age": "0",
-    "email": "",
-    "username": "",
+    "email": "markus.ederl@raiffeisen-software.at",
+    "username": "MarkusEderl",
   });
 
 
@@ -42,7 +42,7 @@ export class App {
       } catch (error) {
         this.snackBar.open("User nicht gespeichert", "OK");
         return [{
-          //field: this.userForm.firstName,
+          fieldTree: form.firstName,
           kind: "server",
           message: "Fehler beim speichern."
         }]
