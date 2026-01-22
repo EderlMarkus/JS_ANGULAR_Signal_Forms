@@ -24,8 +24,12 @@ export class App {
   });
 
 
-  private readonly _asyncValidator = (schema: SchemaPath<string>) => {
-    validateAsync(schema, {
+  protected readonly userForm = form(this.userSig, (path) => {
+    required(path.firstName, { message: "Firstname is required." });
+    minLength(path.firstName, 3, { message: "Firstname must have at least 3 Characters." });
+    maxLength(path.firstName, 30, { message: "Firstname must not have more than 30 Characters." });
+
+    validateAsync(path.firstName, {
       params: ({ value }) => {
         const val = value();
         if (!val || val.length < 3) return undefined;
@@ -52,13 +56,6 @@ export class App {
         return null;
       }
     });
-  }
-
-  protected readonly userForm = form(this.userSig, (path) => {
-    required(path.firstName, { message: "Firstname is required." });
-    minLength(path.firstName, 3, { message: "Firstname must have at least 3 Characters." });
-    maxLength(path.firstName, 30, { message: "Firstname must not have more than 30 Characters." });
-    this._asyncValidator(path.firstName)
   });
 
   protected saveProposal() {
