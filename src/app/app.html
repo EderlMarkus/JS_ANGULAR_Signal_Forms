@@ -47,11 +47,17 @@
     <mat-form-field>
       <mat-label>Hobby</mat-label>
       <input matInput id="hobbyname" class="form-control" [formField]="hobby.name" />
+      @for(error of hobby.name().errors(); track error){
+      <mat-error>{{error.message}}</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Beschreibung</mat-label>
       <input matInput id="hobbydescription" class="form-control" [formField]="hobby.description" />
+      @for(error of hobby.description().errors(); track error){
+      <mat-error>{{error.message}}</mat-error>
+      }
     </mat-form-field>
     <button type="button" matButton="filled" (click)="addHobby()">+</button>
   </div>

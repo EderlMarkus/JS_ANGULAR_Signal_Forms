@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { apply, applyWhen, applyWhenValue, email, FormField, form, MAX_LENGTH, maxLength, MIN_LENGTH, minLength, required, schema, Schema, SchemaPath, validateTree } from '@angular/forms/signals';
+import { apply, applyWhen, applyWhenValue, email, FormField, form, MAX_LENGTH, maxLength, MIN_LENGTH, minLength, required, schema, Schema, SchemaPath, validateTree, applyEach } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { User } from '../data/users';
@@ -55,35 +55,11 @@ export class App {
 
     email(path.email, { message: "Must be E-Mail" });
 
-    //OPTION 1
-    required(path.firstName, {
-      when: (ctx) => !!ctx.valueOf(path.lastName),
-      message: "Firstname is required if Lastname was defined"
-    });
-
-    required(path.lastName, {
-      when: (ctx) => !!ctx.valueOf(path.firstName),
-      message: "Lastname is required if Firstname is defined"
+    applyEach(path.hobbies, hobbiePath => {
+      apply(hobbiePath.name, this._textSchema);
+      apply(hobbiePath.description, this._textSchema);
+      applyWhenValue(hobbiePath, hobby => !!hobby.name, path => required(path.description, { message: "Beschreibung ist verpflichtend wenn Name angegeben ist." }))
     })
-
-    //OPTION 2
-    // applyWhenValue(path, (ctx) => !!ctx.firstName, (path) => {
-    //   required(path.lastName, { message: "Lastname is required." });
-    // });
-
-    // applyWhenValue(path, (ctx) => !!ctx.lastName, (path) => {
-    //   required(path.firstName, { message: "Firstname is required." });
-    // });
-
-    //OPTION 3
-    // applyWhen(path, (ctx) => !!ctx.valueOf(path.firstName), (path) => apply(path.lastName, this._requiredSchema));
-    // applyWhen(path, (ctx) => !!ctx.valueOf(path.lastName), (path) => apply(path.firstName, this._requiredSchema));
-
-
-    //Multi-Field; Tree Valdiators
-    this._validateFirstNameLastNameSame(path);
-
-
   });
 
   protected addHobby() {
