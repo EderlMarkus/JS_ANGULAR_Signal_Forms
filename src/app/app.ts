@@ -35,11 +35,11 @@ export class App {
         params: firstname,
         loader: async ({ params: firstname }) => {
           const queriedUsers = await firstValueFrom(this.userService.findUserByKeyValue("firstName", firstname));
-          return queriedUsers.users.length === 0
+          return queriedUsers.users.length > 0
         }
       }),
-      onSuccess: (result: boolean) => {
-        if (!result) {
+      onSuccess: (userNameFound: boolean) => {
+        if (userNameFound) {
           return {
             kind: "firstname_taken",
             message: "Name already taken"
