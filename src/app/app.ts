@@ -24,7 +24,7 @@ export class App {
   })
 
   protected readonly userSig = signal<User>({
-    "firstName": "MarkusMarkusMarkusMarkus",
+    "firstName": "Markus",
     "lastName": "Ederl",
     "age": "0",
     "email": "markus.eder@r-software.at",
