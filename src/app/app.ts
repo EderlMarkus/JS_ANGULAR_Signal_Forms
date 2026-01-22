@@ -42,7 +42,8 @@ export class App {
       onError: (error, _ctx) => {
         console.error('api error validating user', error);
         return {
-          kind: 'api-failed'
+          kind: 'api-failed',
+          message: "API Failed"
         };
       }
     })
