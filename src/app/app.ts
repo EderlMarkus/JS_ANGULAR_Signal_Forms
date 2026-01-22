@@ -14,7 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 export class App {
 
   protected readonly userSig = signal<User>({
-    "firstName": "Markus"
+    "firstName": "Markus",
   });
 
   protected readonly userForm = form(this.userSig, (path) => {
@@ -22,10 +22,10 @@ export class App {
     required(path.firstName, { message: "Firstname is required." });
     minLength(path.firstName, 3, { message: "Firstname must have at least 3 Characters." });
     maxLength(path.firstName, 30, { message: "Firstname must not have more than 30 Characters." })
-    // min(path.firstName, minValue);               // minimum numeric value
-    // max(path.firstName, maxValue);               // maximum numeric value  
-    // pattern(path.firstName, regex);              // regex pattern
-    // email(path.firstName);                       // email format
+    // min(path.firstName, minValue);                           // minimum numeric value
+    // max(path.firstName, maxValue);                           // maximum numeric value  
+    // pattern(path.firstName, regex);                          // regex pattern
+    // email(path.firstName, { message: "Must be E-Mail." });   // email format
   });
 
   protected saveProposal() {
