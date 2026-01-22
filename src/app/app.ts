@@ -15,10 +15,6 @@ export class App {
   //Initales Signal definieren & typisieren
   protected readonly userSig = signal<User>({
     "firstName": "Markus",
-    "lastName": "",
-    "age": 0,
-    "email": "",
-    "username": "",
   });
 
   //Form initieren

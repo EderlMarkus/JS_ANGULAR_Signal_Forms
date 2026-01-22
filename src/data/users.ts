@@ -4,11 +4,7 @@ import { Observable } from 'rxjs';
 
 export interface User {
   "firstName": string;
-  "lastName": string;
-  "age": number;
-  "email": string;
-  "username": string;
-};
+}
 
 @Injectable({
   providedIn: 'root',
