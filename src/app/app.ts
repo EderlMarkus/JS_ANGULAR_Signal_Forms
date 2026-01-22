@@ -17,10 +17,6 @@ export class App {
   private userService = inject(Users);
   protected readonly userSig = signal<User>({
     "firstName": "Markus",
-    "lastName": "",
-    "age": 0,
-    "email": "",
-    "username": "",
   });
 
 
