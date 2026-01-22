@@ -14,7 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 export class App {
 
   protected readonly userSig = signal<User>({
-    "firstName": "122221231222212312222123122221122221231222212312222123122221122221231222212312222123122221",
+    "firstName": "Markus",
     "lastName": "",
     "age": 0,
     "email": "",
