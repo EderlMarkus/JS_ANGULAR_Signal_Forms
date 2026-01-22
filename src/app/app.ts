@@ -64,6 +64,9 @@ export class App {
 
   protected addHobby() {
     this.userSig.update(model => ({ ...model, hobbies: [...model.hobbies, { name: "", description: "" }] }))
+    //OPTION 2
+    //this.userForm.hobbies().setControlValue([...this.userForm.hobbies().value(), { name: "", description: "" }])
+
   }
 
   protected saveProposal() {
