@@ -22,6 +22,10 @@ export class Users {
   }
 
   public addUser(user: User) {
-    return this._httpClient.post<User>(`${this._apiUrl}/users/add2`, user, { headers: { 'Content-Type': 'application/json' } })
+    return this._httpClient.post<User>(`${this._apiUrl}/users/add`, user, { headers: { 'Content-Type': 'application/json' } })
+  }
+
+  public addUserError(user: User) {
+    return this._httpClient.post<User>(`${this._apiUrl}/users/addERROR`, user, { headers: { 'Content-Type': 'application/json' } })
   }
 }

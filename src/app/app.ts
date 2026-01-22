@@ -37,7 +37,8 @@ export class App {
   protected async saveProposal() {
     await submit(this.userForm, async (form) => {
       try {
-        const response = await firstValueFrom(this.userService.addUser(form().value()));
+        const response = await firstValueFrom(this.userService.addUserError(form().value()));
+        //const responseWithError = await firstValueFrom(this.userService.addUserError(form().value()));
         this.snackBar.open("User gespeichert", "OK");
       } catch (error) {
         this.snackBar.open("User nicht gespeichert", "OK");
