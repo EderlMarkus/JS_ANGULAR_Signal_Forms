@@ -16,7 +16,7 @@ export class App {
   private readonly _textSchema: Schema<string> = schema((fieldPath) => {
     minLength(fieldPath, 3, { message: `Enter minimum 3 Characters` });
     maxLength(fieldPath, 50, { message: (ctx) => `Enter maximum ${ctx.fieldTree().maxLength?.()} Characters` });
-    apply(fieldPath, this._requiredSchema);
+    //apply(fieldPath, this._requiredSchema);
   });
 
   private readonly _requiredSchema: Schema<string> = schema((fieldPath) => {
@@ -34,8 +34,8 @@ export class App {
   protected readonly userForm = form(this.userSig, (path) => {
     //Für wiederkehrende Validatoren welche auf mehrere Felder angewendet werden soll
     //kann man ein Schema verwenden.
-    // apply(path.firstName, this._textSchema);
-    // apply(path.lastName, this._textSchema);
+    apply(path.firstName, this._textSchema);
+    apply(path.lastName, this._textSchema);
 
     email(path.email, { message: "Must be E-Mail" });
 
@@ -51,21 +51,23 @@ export class App {
     // })
 
     //OPTION 2
-    // applyWhenValue(path, (user) => !!user.firstName, (path) => {
-    //   required(path.lastName, { message: "Lastname is required if Firstname is defined." });
+    // applyWhenValue(path, user => !!user.lastName, (path) => {
+    //   required(path.firstName, { message: "Firstname is required if Lastname is defined." });
     // });
-    //applyWhenValue(path, (user) => !!user.firstName, (path) => apply(path.lastName, this._textSchema));
+    // applyWhenValue(path, user => !!user.firstName, (path) => apply(path.lastName, this._textSchema));
 
     //OPTION 3
-    // applyWhen(path, (ctx) => !!ctx.valueOf(path.firstName), (path) => apply(path.lastName, this._textSchema));
-    // applyWhen(path, (ctx) => !!ctx.valueOf(path.lastName), (path) => apply(path.firstName, this._textSchema));
+    // applyWhen(path, ctx => !!ctx.valueOf(path.firstName) && ctx.fieldTree()., (path) => apply(path.lastName, this._textSchema));
+    // applyWhen(path, ctx => !!ctx.valueOf(path.lastName), (path) => apply(path.firstName, this._textSchema));
 
 
     //Multi-Field; Tree Valdiators
     validateTree(path, (ctx) => {
       const firstName = ctx.fieldTree.firstName().value();
       const lastName = ctx.fieldTree.lastName().value();
+
       if (!firstName || !lastName) return null;
+
       if (firstName === lastName) {
         return {
           kind: "same_names",
