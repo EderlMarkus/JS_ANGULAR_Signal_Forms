@@ -32,53 +32,12 @@ export class App {
   });
 
   protected readonly userForm = form(this.userSig, (path) => {
-    //Für wiederkehrende Validatoren welche auf mehrere Felder angewendet werden soll
-    //kann man ein Schema verwenden.
-    apply(path.firstName, this._textSchema);
-    apply(path.lastName, this._textSchema);
-
-    email(path.email, { message: "Must be E-Mail" });
-
-    //OPTION 1
-    // required(path.firstName, {
-    //   when: (ctx) => !!ctx.valueOf(path.lastName),
-    //   message: "Firstname is required if Lastname was defined"
-    // });
-
-    // required(path.lastName, {
-    //   when: (ctx) => !!ctx.valueOf(path.firstName),
-    //   message: "Lastname is required if Firstname is defined"
-    // })
-
     //OPTION 2
-    // applyWhenValue(path, user => !!user.lastName, (path) => {
-    //   required(path.firstName, { message: "Firstname is required if Lastname is defined." });
-    // });
-    // applyWhenValue(path, user => !!user.firstName, (path) => apply(path.lastName, this._textSchema));
+    applyWhenValue(path, user => !!user.lastName, (path) => {
+      required(path.firstName, { message: "Firstname is required if Lastname is defined." });
+    });
 
-    //OPTION 3
-    // applyWhen(path, ctx => !!ctx.valueOf(path.firstName) && ctx.fieldTree()., (path) => apply(path.lastName, this._textSchema));
-    // applyWhen(path, ctx => !!ctx.valueOf(path.lastName), (path) => apply(path.firstName, this._textSchema));
-
-
-    //Multi-Field; Tree Valdiators
-    validateTree(path, (ctx) => {
-      const firstName = ctx.fieldTree.firstName().value();
-      const lastName = ctx.fieldTree.lastName().value();
-
-      if (!firstName || !lastName) return null;
-
-      if (firstName === lastName) {
-        return {
-          kind: "same_names",
-          message: "Firstname and Lastname must not be same",
-          fieldTree: ctx.fieldTree.firstName,
-          firstName,
-          lastName
-        }
-      }
-      return null;
-    })
+    applyWhenValue(path, user => !!user.firstName, (path) => apply(path.lastName, this._textSchema));
   });
 
   protected saveProposal() {
