@@ -33,7 +33,7 @@ export class App {
 
   protected readonly userForm = form(this.userSig, (path) => {
     //OPTION 3
-    applyWhen(path, ctx => !!ctx.valueOf(path.firstName) && ctx.fieldTree()., (path) => apply(path.lastName, this._textSchema));
+    applyWhen(path, ctx => !!ctx.valueOf(path.firstName), (path) => apply(path.lastName, this._textSchema));
     applyWhen(path, ctx => !!ctx.valueOf(path.lastName), (path) => apply(path.firstName, this._textSchema));
   });
 
