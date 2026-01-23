@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { email, FormField, form, max, maxLength, min, minLength, pattern, required } from '@angular/forms/signals';
+import { FormField, form, maxLength, minLength, required } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { User } from '../data/users';
