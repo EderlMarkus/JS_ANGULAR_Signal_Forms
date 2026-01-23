@@ -18,28 +18,6 @@ export class App {
     maxLength(fieldPath, 50, { message: (ctx) => `Enter maximum ${ctx.fieldTree().maxLength?.()} Characters` });
   });
 
-  private readonly _requiredSchema: Schema<string> = schema((fieldPath) => {
-    required(fieldPath, { message: (ctx) => `${ctx.fieldTree().keyInParent()} is required.` });
-  })
-
-  private readonly _validateFirstNameLastNameSame = (schema: SchemaPath<User>) => {
-    validateTree(schema, (ctx) => {
-      const firstName = ctx.fieldTree.firstName().value();
-      const lastName = ctx.fieldTree.lastName().value();
-      if (!firstName || !lastName) return null;
-      if (firstName === lastName) {
-        return {
-          kind: "same_names",
-          message: "Firstname and Lastname must not be same",
-          field: ctx.fieldTree.firstName,
-          firstName,
-          lastName
-        }
-      }
-      return null;
-    })
-  }
-
   protected readonly userSig = signal<User>({
     "firstName": "Markus",
     "lastName": "Ederl",
@@ -52,7 +30,6 @@ export class App {
   protected readonly userForm = form(this.userSig, (path) => {
     apply(path.firstName, this._textSchema);
     apply(path.lastName, this._textSchema);
-
     email(path.email, { message: "Must be E-Mail" });
 
     applyEach(path.hobbies, hobbiePath => {
