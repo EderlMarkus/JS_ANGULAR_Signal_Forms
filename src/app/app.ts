@@ -36,6 +36,8 @@ export class App {
     //kann man ein Schema verwenden.
     apply(path.firstName, this._textSchema);
     apply(path.lastName, this._textSchema);
+    apply(path.username, this._textSchema);
+
   });
 
   protected saveProposal() {
