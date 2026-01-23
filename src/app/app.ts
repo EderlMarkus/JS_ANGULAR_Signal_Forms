@@ -16,7 +16,7 @@ export class App {
   private readonly _textSchema: Schema<string> = schema((fieldPath) => {
     minLength(fieldPath, 3, { message: `Enter minimum 3 Characters` });
     maxLength(fieldPath, 50, { message: (ctx) => `Enter maximum ${ctx.fieldTree().maxLength?.()} Characters` });
-    //apply(fieldPath, this._requiredSchema);
+    apply(fieldPath, this._requiredSchema);
   });
 
   private readonly _requiredSchema: Schema<string> = schema((fieldPath) => {
