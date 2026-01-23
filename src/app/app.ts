@@ -25,7 +25,7 @@ export class App {
     // min(path.firstName, minValue);                           // minimum numeric value
     // max(path.firstName, maxValue);                           // maximum numeric value  
     // pattern(path.firstName, regex);                          // regex pattern
-    // email(path.firstName, { message: "Must be E-Mail." });   // email format
+    //email(path.firstName, { message: "Must be E-Mail." });   // email format
   });
 
   protected saveProposal() {
