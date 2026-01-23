@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormField, form, maxLength, minLength, provideSignalFormsConfig, required, submit } from '@angular/forms/signals';
+import { FormField, form, maxLength, minLength, required, submit } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { User, Users } from '../data/users';
